@@ -6,4 +6,6 @@ const now = new Date();
 const later = new Date(now.getTime() + 2000);
 
 const source$ = timer(later);
-source$.subscribe(console.log);
+// source$.subscribe(console.log);
+//第二个参数设置时间间隔，设置后同interval
+timer(3000,1000).subscribe(console.log)
