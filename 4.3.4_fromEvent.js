@@ -17,4 +17,21 @@ setInterval(() => {
 // eventA$.subscribe(console.log);
 
 const eventA$ = fromEvent(eA, 'doSomeThing');
-eventA$.subscribe(console.log);
+const subscr1 = eventA$.subscribe(console.log);
+setTimeout(() => {
+  subscr1.unsubscribe();
+}, 7000);
+//-------------
+const emitter = new EventEmitter();
+const source$ = fromEvent(emitter, 'msg');
+source$.subscribe(
+  (val) => {
+    console.log('msg:', val);
+  },
+  (err) => console.error('catch', err),
+  () => console.log('complete')
+);
+emitter.emit('msg', 1);
+emitter.emit('msg', 2);
+emitter.emit('another-msg', 'oops');
+emitter.emit('msg', 3);
